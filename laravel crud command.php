@@ -24,10 +24,6 @@ php artisan migrate --path='database/migration/file-name'
 {{url('group/$id/integration-settings')}}
 
 
-https://crunchify.com/
-
-
-
 **** CRUD Using Query Builder ***
 # Insert
 DB::table('post')->insert([
