@@ -1,3 +1,135 @@
+Laravel Useful Code
+
+// where multiple conditions
+
+$products = Product::where([['client_id','=>',$cid'],['client_id','=>',$cid']])->first()->toArray();
+
+
+// Ajax 
+
+<meta name="csrf-token" content="{{ csrf_token() }}" />
+
+ <select id="category" name="category" onchange="get_product_name('',this.value)" class="form-control" >
+
+function get_product_name(div_id,category)
+ {
+     
+     
+     $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+              }
+          });
+    jQuery.ajax({
+              url: 'get-product-name-by-category',
+              method: 'post',
+              data: {
+                 category:category
+              },
+              success: function(result){
+                  $('#product_name'+div_id).html(result);
+              }});
+ }
+
+
+// for filter 
+### Dashboard graph create- Sale today, total sales, pending order ,order summary, performance, total income, new visitors, report, total balance,
+
+
+  $fd=$this->request->data['fdate'];
+                    $ld=$this->request->data['ldate'];
+                    if (isset($this->request->data['view_type']))
+                    {
+                        $view_type=$this->request->data['view_type'];
+                        if($view_type=="Today"){
+            
+                            $conditions = "and date(cm_date) = curdate()";
+                                            
+                            $Abandconditions = "and date(AbandDate) = curdate()";
+                                            $conditions1 = "and date(cm.CallDate) = curdate()";
+                            $view_date="date(t2.call_date) = curdate()";
+                                            $condArr['date(CallDate)']=date('Y-m-d');
+                        }
+                        if($view_type=="Yesterday"){
+                            $yesterday=date('Y-m-d', strtotime('-1 day'));
+                                            $condArr['date(CallDate)']=$yesterday;
+
+                            $conditions = "and date(cm_date) = SUBDATE(CURDATE(),INTERVAL 1 DAY)";
+
+                                            $Abandconditions = "and date(AbandDate) = SUBDATE(CURDATE(),INTERVAL 1 DAY)";
+                                            $conditions1 = "and date(cm.CallDate) = SUBDATE(CURDATE(),INTERVAL 1 DAY)";
+                            $view_date="date(t2.call_date) = SUBDATE(CURDATE(),INTERVAL 1 DAY)";
+                        }
+                        if($view_type=="Weekly"){
+                            $end = date('Y-m-d', strtotime('-6 day'));
+                                            $condArr['date(CallDate) <=']=date('Y-m-d');
+                                            $condArr['date(CallDate) >=']=$end;
+
+                            $conditions = "and date(cm_date) between SUBDATE(CURDATE(),INTERVAL 6 DAY) and CURDATE()";
+                                           
+                            $Abandconditions = "and date(AbandDate) between SUBDATE(CURDATE(),INTERVAL 6 DAY) and CURDATE()";
+                                            $conditions1 = "and date(cm.CallDate) between SUBDATE(CURDATE(),INTERVAL 6 DAY) and CURDATE()";
+                            $view_date="date(t2.call_date) between SUBDATE(CURDATE(),INTERVAL 6 DAY) and CURDATE()";
+                        }
+                        if($view_type=="Monthly"){
+                            $end = date('Y-m-d', strtotime('-30 day'));
+                                            $condArr['date(CallDate) <=']=date('Y-m-d');
+                                            $condArr['date(CallDate) >=']=$end;
+                                          
+                                            
+                                            $conditions ="and MONTH(cm_date) = MONTH(CURDATE()) and YEAR(CallDate) = YEAR(CURDATE())";
+                                            
+                                            
+                                            $Abandconditions ="and MONTH(AbandDate) = MONTH(CURDATE()) and YEAR(AbandDate) = YEAR(CURDATE())";
+                                            $conditions1 ="and MONTH(cm.CallDate) = MONTH(CURDATE()) and YEAR(cm.CallDate) = YEAR(CURDATE())";
+                                            $view_date ="MONTH(t2.call_date) = MONTH(CURDATE()) and YEAR(t2.call_date) = YEAR(CURDATE())";
+                                            
+                                            
+                                            
+                                            
+                        }
+                        if($view_type=="Custom"){
+                            $fdate = date('Y-m-d', strtotime($this->request->data['fdate']));
+                            $ldate = date('Y-m-d', strtotime($this->request->data['ldate']));
+                                            
+                                            $condArr['date(CallDate) >=']=$fdate;
+                                            $condArr['date(CallDate) <=']=$ldate;
+                                            
+                            $conditions = "and date(cm_date) between '$fdate' and '$ldate'";
+                                           
+                            $Abandconditions = "and date(AbandDate) between '$fdate' and '$ldate'";
+                                            $conditions1 = "and date(cm.CallDate) between '$fdate' and '$ldate'";
+                                            $view_date = "date(t2.call_date) between '$fdate' and '$ldate'";
+                                                    /*
+                                if($this->request->data['fdate'] !="" && $this->request->data['ldate'] !=""){
+                                $view_date=$fdate."&nbsp;-&nbsp;".$ldate;
+                                }
+                                else{
+                                    $view_date="";
+                                }*/
+                        }
+                                    
+                                    // if($callType ==="outbounds"){
+                                    //     $this->view_outbound_deshbord($conditions1,$conditions,$view_type,$view_date,$condArr,$callType,$fd,$ld);
+                                        
+                                    // }else{
+                                        
+                                    //     $this->view_deshbord($conditions1,$conditions,$view_type,$view_date,$condArr,$callType,$fd,$ld,$Abandconditions);
+                                    
+                                    // }
+                                    
+                    }
+
+
+
+
+
+
+
+
+
+
+
 ####laravel crud command
 composer create-project --prefer-dist laravel/laravel example-app
 cd example-app
