@@ -85,6 +85,39 @@ else
 
 
 
+<select id="part_code" name="part_code"  class="form-control" onchange="get_hsn_code('',this.value)" required="">
+                                                <option value="">Select</option>
+                                            </select>
+function get_hsn_code(div_id,part_name)
+ {
+
+
+    var product_code = $('#product_code').val();
+    var product_id = $('#product_id').val();
+    var part_code = $('#part_code'+div_id).val();
+
+     $.ajaxSetup({
+              headers: {
+                  'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
+              }
+          });
+    jQuery.ajax({
+              url: 'get-hsn-code',
+              method: 'post',
+              data: {
+         
+                 product_id:product_id,
+                 product_code:product_code,
+                 part_name:part_name,
+                 part_code: part_code 
+              },
+              success: function(result){
+                  $('#hsn_code'+div_id).html(result);
+              }});
+ } 
+
+
+ 
 
 
 var timeLeft = 30;
