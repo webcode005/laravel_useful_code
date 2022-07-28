@@ -31,6 +31,12 @@ use Illuminate\Support\Facades\Validator;
                  }
 
 
+$spare_part_det = SparePart::whereRaw("category='$category' and  product_name='$product_name' and product_id='$product_id'  and part_name='$part_name' and part_code='$part_code' and hsn_code='$hsn_code'")->first();
+        $wholesale_price =    $spare_part_det->wholesale_price;
+
+
+
+
 $data['courses'] = Course::select("*")
 ->where('uploaded_by',$User_Id)
 ->orderBy('tid', 'DESC')
