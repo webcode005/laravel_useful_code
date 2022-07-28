@@ -35,7 +35,8 @@ $spare_part_det = SparePart::whereRaw("category='$category' and  product_name='$
         $wholesale_price =    $spare_part_det->wholesale_price;
 
 
-
+$product_det           =   ProductMaster::whereRaw(" product_id='$product_id'")->first(); 
+        $product_code = $product_det->product_code;
 
 $data['courses'] = Course::select("*")
 ->where('uploaded_by',$User_Id)
