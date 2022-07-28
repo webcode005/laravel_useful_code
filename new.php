@@ -44,6 +44,16 @@ $data['courses'] = Course::select("*")
 ->get();
 
 
+$inv_arr           =   DB::select($qr);
+        $file_report = "inventory-report.xls";
+        header("Content-type: application/octet-stream");
+            header("Content-Disposition: attachment; filename=$file_report");
+            header("Pragma: no-cache");
+            header("Expires: 0"); 
+        
+
+
+
 $join->on('a.field1', '=', 'b.field2')
         ->where('b.field3', '=', true)
         ->where('b.field4', '=', '1');
