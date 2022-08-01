@@ -1,0 +1,52 @@
+SELECT dpa.*,tsc.center_id,tsc.center_name,tsp.* FROM `defective_po_asc` dpa 
+INNER JOIN `tbl_service_centre` tsc ON dpa.center_id=tsc.`center_id` 
+INNER JOIN `tagging_spare_part` tsp ON dpa.`Tag_Id`=tsp.`tag_id` 
+WHERE 1=1 AND DATE(dpa.created_at) BETWEEN '2022-07-20' AND '2022-07-29' AND dpa.center_id ='72' ORDER BY dpa.created_at ASC
+
+SELECT * FROM `damage_inventory_sc` ORDER BY inwsc_id DESC
+
+SELECT dpa.*,tsc.center_id,tsc.center_name FROM `damage_inventory_sc` dpa INNER JOIN `tbl_service_centre` tsc ON dpa.center_id=tsc.`center_id` 
+WHERE 1=1 AND DATE(dpa.created_at) BETWEEN '2022-07-01' AND '2022-07-29' AND dpa.center_id ='92' ORDER BY dpa.created_at ASC
+
+SELECT dpa.*,tsc.center_id,tsc.center_name FROM `damage_inventory_sc` dpa 
+INNER JOIN `tbl_service_centre` tsc ON dpa.center_id=tsc.`center_id` 
+WHERE 1=1 AND DATE(dpa.created_at) BETWEEN '2022-07-01' AND '2022-07-30' AND dpa.center_id ='72' ORDER BY dpa.created_at ASC
+
+
+
+
+SELECT tm.*,sc.center_name,DATE_FORMAT(tm.created_at,'%d-%b-%y') created_at FROM tagging_master tm 
+LEFT JOIN tbl_service_centre sc ON tm.center_id = sc.center_id 
+WHERE tm.center_id IS NOT NULL AND tm.case_status ='Open' AND DATE(tm.created_at)=CURDATE();
+
+SELECT tm.*,sc.center_name,DATE_FORMAT(tm.created_at,'%d-%b-%y') created_at FROM tagging_master tm 
+LEFT JOIN tbl_service_centre sc ON tm.center_id = sc.center_id 
+WHERE tm.center_id IS NOT NULL AND tm.case_status ='Open';
+
+**************************************************************************************************************************
+SELECT tm.*,sc.center_name,DATE_FORMAT(tm.created_at,'%d-%b-%y') created_at FROM tagging_master tm
+            LEFT JOIN tbl_service_centre  sc ON tm.center_id = sc.center_id
+            WHERE tm.center_id IS NOT NULL AND tm.case_status ='Open' 
+                 AND tm.state = 'BIHAR' AND tm.Pincode = 'Araria'
+                 
+SELECT tm.*,sc.center_name,DATE_FORMAT(tm.created_at,'%d-%b-%y') created_at FROM tagging_master tm
+            LEFT JOIN tbl_service_centre  sc ON tm.center_id = sc.center_id
+            WHERE tm.center_id IS NOT NULL AND tm.case_status ='Open' 
+                 AND tm.state = 'BIHAR' AND tm.Pincode = 'Araria' AND DATE(tm.created_at) BETWEEN '2022-07-01' AND '2022-07-19' 
+                 
+                 4
+                 
+SELECT tm.*,sc.center_name,DATE_FORMAT(tm.created_at,'%d-%b-%y') created_at FROM tagging_master tm
+            LEFT JOIN tbl_service_centre  sc ON tm.center_id = sc.center_id
+            WHERE tm.center_id IS NOT NULL AND tm.case_status ='Open' 
+                 and tm.state = 'BIHAR' and tm.Pincode = 'Araria' and date(tm.created_at) between '2022-06-01' and '2022-07-19'
+                 
+                 6
+                 
+                 
+select TagId,job_id,center_allocation_by from `tagging_master` where case_status='Open' AND center_allocation_by is Not Null order By TagId Desc
+
+    
+
+
+    
